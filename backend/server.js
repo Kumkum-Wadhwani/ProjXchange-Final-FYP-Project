@@ -12,6 +12,7 @@ import postsRoutes from "./routes/postsRoutes.js";
 import commentsRoutes from "./routes/commentsRoutes.js";
 import bidPackRoutes from './routes/bidPackRoutes.js';
 import deliverableRoutes from './routes/deliverableRoutes.js';
+
 dotenv.config();
 
 const app = express();
@@ -20,12 +21,29 @@ const PORT = process.env.PORT || 5000;
 const __filename = fileURLToPath(import.meta.url);
 const __dirname = path.dirname(__filename);
 
-// CORS
+// ✅ UPDATED CORS — works for both local and deployed
 app.use(cors({
-  origin: ['http://localhost:5173', 'http://localhost:5174'],
+  origin: function(origin, callback) {
+    const allowedOrigins = [
+      'http://localhost:5173',
+      'http://localhost:5174',
+      process.env.FRONTEND_URL,
+    ].filter(Boolean);
+    
+    // Allow requests with no origin (mobile apps, Postman etc)
+    if (!origin) return callback(null, true);
+    
+    if (allowedOrigins.includes(origin)) {
+      return callback(null, true);
+    } else {
+      return callback(new Error('Not allowed by CORS'));
+    }
+  },
   credentials: true
 }));
+
 app.use('/api/deliverables', deliverableRoutes);
+
 // Debug logger
 app.use((req, res, next) => {
   console.log(`📥 ${req.method} ${req.url}`);
@@ -39,14 +57,14 @@ app.use(express.urlencoded({ extended: true }));
 // Static uploads
 app.use('/uploads', express.static(path.join(process.cwd(), 'uploads')));
 
-// ========== ALL ROUTES MUST BE REGISTERED HERE ==========
+// ========== ALL ROUTES ==========
 app.use('/api/auth', authRoutes);
 app.use('/api/projects', projectRoutes);
 app.use('/api/admin', adminRoutes);
 app.use('/api/payments', paymentRoutes);
 app.use('/api/posts', postsRoutes);
 app.use('/api/comments', commentsRoutes);
-app.use('/api/bid-packs', bidPackRoutes);   // ✅ MOVED BEFORE 404 HANDLER
+app.use('/api/bid-packs', bidPackRoutes);
 
 // Health check
 app.get('/api/health', (req, res) => {
@@ -54,11 +72,11 @@ app.get('/api/health', (req, res) => {
     success: true,
     message: 'Backend is working!',
     port: PORT,
-    frontend: 'http://localhost:5174'
+    environment: process.env.NODE_ENV || 'development'
   });
 });
 
-// ========== 404 HANDLER – MUST BE LAST ==========
+// ========== 404 HANDLER ==========
 app.use('*', (req, res) => {
   res.status(404).json({
     success: false,
@@ -69,6 +87,5 @@ app.use('*', (req, res) => {
 app.listen(PORT, () => {
   console.log(`🚀 Server running on port ${PORT}`);
   console.log(`🌐 Backend URL: http://localhost:${PORT}/api`);
-  console.log(`🔗 Frontend URL: http://localhost:5174`);
-  console.log(`✅ CORS enabled for: http://localhost:5174`);
+  console.log(`✅ CORS enabled for: ${process.env.FRONTEND_URL || 'localhost'}`);
 });
