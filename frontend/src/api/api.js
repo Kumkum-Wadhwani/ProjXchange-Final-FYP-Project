@@ -2,7 +2,7 @@ import axios from 'axios';
 
 // Create axios instance with base URL
 const API = axios.create({
-  baseURL: import.meta.env.VITE_API_URL || 'http://localhost:5000/api',
+  baseURL: 'https://projxchange-final-fyp-project-production.up.railway.app/api',
   timeout: 30000, // Increased timeout
   headers: {
     'Content-Type': 'application/json',
