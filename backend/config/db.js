@@ -1,15 +1,18 @@
-const { Pool } = require('pg');
-require('dotenv').config();
+import pg from 'pg';
+import dotenv from 'dotenv';
+
+dotenv.config();
+
+const { Pool } = pg;
 
 const pool = new Pool({
-  user: process.env.DB_USER,
-  host: process.env.DB_HOST,
-  database: process.env.DB_NAME,
-  password: process.env.DB_PASSWORD,
-  port: process.env.DB_PORT,
+  connectionString: process.env.DATABASE_URL,
+  ssl: {
+    rejectUnauthorized: false
+  }
 });
 
-// Test database connection
+// Test connection
 const testConnection = async () => {
   try {
     const client = await pool.connect();
@@ -20,7 +23,6 @@ const testConnection = async () => {
   }
 };
 
-// Call the connection test
 testConnection();
 
 pool.on('connect', () => {
@@ -31,4 +33,4 @@ pool.on('error', (err) => {
   console.error('Database connection error:', err);
 });
 
-module.exports = pool;
+export default pool;
