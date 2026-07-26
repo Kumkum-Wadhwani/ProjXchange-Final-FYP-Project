@@ -1,0 +1,11 @@
+﻿uploads/deliverables/*.zip
+uploads/proposal-*.pdf
+*.zip
+*.rar
+*.7z
+*.tar.gz
+node_modules/
+.env
+*.log
+dist/
+build/
