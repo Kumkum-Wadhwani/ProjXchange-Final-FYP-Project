@@ -5,7 +5,7 @@
 A professional **Student-Investor Collaboration Platform** that bridges 
 the gap between talented developers and investors ready to back them.
 
-Built as a Final Year Project at **SZABIST University Karachi — 2026**
+Built as a Final Year Project at **SZABIST University Karachi - 2026**
 
 ---
 
@@ -49,29 +49,29 @@ Because talent is everywhere. Opportunity should be too.
 
 ---
 
-## 🛠️ Tech Stack — PERN Stack
+## 🛠️ Tech Stack - PERN Stack
 
 ### Frontend
-- ⚛️ React.js — dynamic component based UI
-- ⚡ Vite — fast build tool
-- 🎨 CSS — modern responsive styling
-- 🔗 Axios — API communication
+- ⚛️ React.js - dynamic component based UI
+- ⚡ Vite - fast build tool
+- 🎨 CSS - modern responsive styling
+- 🔗 Axios - API communication
 
 ### Backend
-- 🟢 Node.js — server side runtime
-- 🚂 Express.js — RESTful API framework
-- 🔐 JWT — secure role based authentication
-- 🔒 Bcrypt — password hashing and security
+- 🟢 Node.js - server side runtime
+- 🚂 Express.js - RESTful API framework
+- 🔐 JWT - secure role based authentication
+- 🔒 Bcrypt - password hashing and security
 
 ### Database
-- 🐘 PostgreSQL — scalable relational database
+- 🐘 PostgreSQL - scalable relational database
 
 ### Payments
-- 💳 Stripe API — secure payment processing and transactions
+- 💳 Stripe API - secure payment processing and transactions
 
 ### Architecture
 - 🏗️ Three Tier Architecture
-- 🔑 Role Based Access Control — RBAC
+- 🔑 Role Based Access Control - RBAC
 - 📱 Fully Responsive Design
 - 🔄 RESTful API Design
 
